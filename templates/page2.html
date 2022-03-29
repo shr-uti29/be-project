@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classification of Diseases</title>
+
+    <!-- Font Icon -->
+    <!-- <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'vendor/jquery-ui/jquery-ui.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+    <div class="main" style="font-family: Comic Sans MS",>
+
+        <section class="">
+
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+            	<h1 style="color: navy; text-align: center; padding-top: 15px; font-size: xx-large;" >Disease Predictor</h1>
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first_name">First name</label>
+                                <input type="text" class="form-input" name="first_name" id="first_name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last name</label>
+                                <input type="text" class="form-input" name="last_name" id="last_name" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group form-icon">
+                                <label for="birth_date">Birth date</label>
+                                <input type="text" class="form-input" name="birth_date" id="birth_date" placeholder="MM-DD-YYYY" />
+                            </div>
+                            <div class="form-radio">
+                                <label for="gender">Gender</label>
+                                <div class="form-flex">
+                                    <input type="radio" name="gender" value="male" id="male" checked="checked" />
+                                    <label for="male">Male</label>
+    
+                                    <input type="radio" name="gender" value="female" id="female" />
+                                    <label for="female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_number">Phone number</label>
+                            <input type="number" class="form-input" name="phone_number" id="phone_number" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="symptoms">Enter your symptoms</label>
+                                <input type="text" class="form-input" id = "symptoms-text" name="symptoms" id="symptoms"/>
+                            </div>
+                        </div>
+                        <button type="button" class="form-submit" style="margin-left: 20px;" id="stop-record">Stop Recording</button>
+                        <button type="button" class="form-submit" id="record">Start Recording</button>
+                        <!-- <div class="form-text">
+                            <a href="#" class="add-info-link"><i class="zmdi zmdi-chevron-right"></i>Additional info</a>
+                            <div class="add_info">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-input" name="email" id="email"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <div class="select-list">
+                                        <select name="country" id="country" required>
+                                            <option value="US">United State</option>
+                                            <option value="UK">English</option>
+                                            <option value="VN">Viet Nam</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <div class="select-list">
+                                        <select name="city" id="city" required>
+                                            <option value="NY">NewYork</option>
+                                            <option value="IC">IceLand</option>
+                                            <option value="canada">Canada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../static/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="../static/vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/speech.js"></script>
+</body>
+</html>
