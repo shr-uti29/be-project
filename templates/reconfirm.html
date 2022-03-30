@@ -1,0 +1,57 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classification of Diseases</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/jquery-ui/jquery-ui.min.css' %}">
+   
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/reconfirmstyle.css'%}">
+</head>
+
+<body>
+    <div class="main" style="font-family: Comic Sans MS",>
+
+        <section class="">
+
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container" style="height: 400px;">
+               <h1 style="color: navy; text-align: center; padding-top: 15px; font-size: xx-large; margin-bottom: 5px" >Disease Predictor</h1>
+                <div class="signup-content">
+                    <h2 style="font-family: Comic Sans MS; text-align:center; font-size: medium;">Please Confirm Your Symptoms</h2>
+                        <form action="confirmsymptom" id="symptomreconfirm" style="margin-left:auto;" method="POST">
+                            {% csrf_token %}  
+                        {{stemmed}}                             
+                        {% for s in output %}
+                        <input type="checkbox" id="symptom1" name="symptom1[]" value = "{{s}}">
+                        <label for="symptom1" style="background-color:#1da0f2; color: white; padding: 8px;">{{s}}</label><br>
+                        <br>
+                        {% endfor %}
+
+                        <!-- <button type="button" class="form-submit" id="confirmsymptom" name="confirmsymptom" >Confirm Symtpoms</button> -->
+                        <input type="submit" class="form-submit"  name="confirmsymptom">
+                        </form>
+                    </div>
+                    </div>
+                    
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../static/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="../static/vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/speech.js"></script>
+    <script>
+    function change() {
+        var x = document.getElementById("symptom1").value = "newCheckboxValue";
+        x = "newCheckboxValue"
+        print(x)
+        }
+    </script>
+</body>
+</html>

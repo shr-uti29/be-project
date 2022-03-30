@@ -7,4 +7,5 @@ path('', views.index, name='dcease'),
 path('submit',views.submit,name = 'submit'),
 path('',views.translate,name='translate'),
 path('',views.speechrecog,name='speechrecog'),
+path('confirmsymptom',views.confirmsymptom,name='confirmsymptom')
 ]
