@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from httpx import request
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -8,14 +9,53 @@ import numpy as np
 import itertools
 import re
 import speech_recognition as sr
+from googletrans import Translator
+# https://www.google.com/search?q=how+do+you+run+a+python+script+in+django&oq=how+do+you+run+a+python+script+in+django&aqs=chrome..69i57j0i22i30l4j0i390l2.19035j0j7&sourceid=chrome&ie=UTF-8
+# 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
+
+# explicit function to take input commands and recognize them
+def takeCommandMarathi():
+
+	r = sr.Recognizer()
+	with sr.Microphone() as source:
+		
+		# seconds of non-speaking audio before
+		# a phrase is considered complete
+		#print('Listening')
+		r.pause_threshold = 0.7
+		audio = r.listen(source)
+		try:
+			#print("Recognizing")
+			Query = r.recognize_google(audio, language='mr-In')
+			
+			# for listening the command in indian english
+			#print("the query is printed='", Query, "'")
+		
+		# handling the exception, so that assistant can
+		# ask for telling again the command
+		except Exception as e:
+			print(e)
+			print("Say that again sir")
+			return "None"
+		return Query
 
 def index(request):
     return render(request, 'index.html', {})
 
+def speechrecog(request):
+    a=takeCommandMarathi()
+    print(a)
+    return render(request,'index.html',{'a':a})
+
+def translate(request):
+    # translate
+    translator = Translator()
+    results = translator.translate(takeCommandMarathi())
+    #print(results.text)
+    return HttpResponse(results.text)
+
 def submit(request):
     input = request.GET['symptoms']
-
-    # translate
 
     # tokenization
     tokens = nltk.word_tokenize(input) 
@@ -47,7 +87,7 @@ def submit(request):
 
     
     # symptom corpus
-    df = pd.read_excel (r'C:\Users\shruti\Downloads\Dataset (3).xlsx')
+    df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.rename(columns = {'snow white hair in patches':'Symptoms'}, inplace = True)
     symptoms = df.values.tolist()
