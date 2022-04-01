@@ -10,6 +10,7 @@ import itertools
 import re
 import speech_recognition as sr
 from googletrans import Translator
+from translate import Translator
 from owlready2 import *
 
 # https://www.google.com/search?q=how+do+you+run+a+python+script+in+django&oq=how+do+you+run+a+python+script+in+django&aqs=chrome..69i57j0i22i30l4j0i390l2.19035j0j7&sourceid=chrome&ie=UTF-8
@@ -44,26 +45,26 @@ def takeCommandMarathi():
 def index(request):
     return render(request, 'index.html', {})
 
-def speechrecog(request):
-    a=takeCommandMarathi()
-    print(a)
-    return render(request,'page1.html')
+# def speechrecog(request):
+#     a=takeCommandMarathi()
+#     print(a)
+#     return render(request,'page1.html')
 
-def translate(request):
-    # translate
-    translator = Translator()
-    results = translator.translate(takeCommandMarathi())
-    print(results.text)
-    return HttpResponse(results.text)
+# def translate(request):
+#     # translate
+#     translator = Translator()
+#     results = translator.translate(takeCommandMarathi())
+#     print(results.text)
+#     return HttpResponse(results.text)
 
 def submit(request):
-    input = request.GET['symptoms']
-    translator = Translator()
+    input = request.GET['transcript']
+    translator = Translator(from_lang="Hindi" ,to_lang="English")
     results = translator.translate(input)
-    print(results.text)
+    
 
     # tokenization
-    tokens = nltk.word_tokenize(input) 
+    tokens = nltk.word_tokenize(results) 
 
     # stop word removal   
     stop_words = stopwords.words('english')
@@ -92,8 +93,8 @@ def submit(request):
 
     
     # symptom corpus
-    # df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
-    df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
+    df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
+    # df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.rename(columns = {'snow white hair in patches':'Symptoms'}, inplace = True)
     symptoms = df.values.tolist()
@@ -134,10 +135,10 @@ def confirmsymptom(request):
         d.append(s1)
 
     # load ontology
-    # onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
-    # onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
-    onto_path.append("D:/Sem 7/project/be-project")
-    onto=get_ontology("D:/Sem 7/project/be-project/latestlatestlatest.owl")
+    onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
+    onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
+    # onto_path.append("D:/Sem 7/project/be-project")
+    # onto=get_ontology("D:/Sem 7/project/be-project/latestlatestlatest.owl")
     onto.load()
 
     # inputsymp=list(map(str, input("User symptoms: ").split()))
