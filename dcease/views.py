@@ -149,7 +149,7 @@ def confirmsymptom(request):
     for i in d:
         st=st.replace('ABCDSyndrome',i)
         l=list(default_world.sparql(st))
-        # print(l)
+        print(l)
         st=st.replace(i,'ABCDSyndrome')
         for z in range(0,len(l)):
             l1=l[z]

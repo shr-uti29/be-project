@@ -468,12 +468,11 @@ li.init:after {
 
 .form-submit {
   width: auto;
-  background: #1da0f2;
+  background: #0f3b9e;
   color: #fff;
   text-transform: uppercase;
   font-weight: 900;
   padding: 16px 50px;
-  float: right;
   border: none;
   margin-top: 37px;
   cursor: pointer;

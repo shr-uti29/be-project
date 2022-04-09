@@ -21,13 +21,12 @@
         <section class="">
 
             <!-- <img src="images/signup-bg.jpg" alt=""> -->
-            <div class="container" style="height: 400px;">
+            <div class="container" style="height: 100%;">
                <h1 style="color: navy; text-align: center; padding-top: 15px; font-size: xx-large; margin-bottom: 5px" >Disease Predictor</h1>
                 <div class="signup-content">
                     <h2 style="font-family: Comic Sans MS; text-align:center; font-size: medium;">Please Confirm Your Symptoms</h2>
                         <form action="confirmsymptom" id="symptomreconfirm" style="margin-left:auto;" method="POST">
-                            {% csrf_token %}  
-                        {{stemmed}}                             
+                            {% csrf_token %}                            
                         {% for s in output %}
                         <input type="checkbox" id="symptom1" name="symptom1[]" value = "{{s}}">
                         <label for="symptom1" style="background-color:#1da0f2; color: white; padding: 8px;">{{s}}</label><br>
@@ -35,7 +34,7 @@
                         {% endfor %}
 
                         <!-- <button type="button" class="form-submit" id="confirmsymptom" name="confirmsymptom" >Confirm Symtpoms</button> -->
-                        <input type="submit" class="form-submit"  name="confirmsymptom">
+                        <input type="submit" class="form-submit"  style=" background: #0f3b9e;float:none"name="confirmsymptom">
                         </form>
                     </div>
                     </div>
