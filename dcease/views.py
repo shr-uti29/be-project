@@ -163,4 +163,4 @@ def confirmsymptom(request):
     return render(request, 'page1.html', {'output': confirmedsymptoms,'ans': sym})
     
 def send_disease(request):
-    return render(request,'page3.html',{})
+    return render(request,'page3.html',context={'text': "Hellow"})

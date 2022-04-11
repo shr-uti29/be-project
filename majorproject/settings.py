@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'dcease',
 ]
 
@@ -70,6 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'majorproject.wsgi.application'
+ASGI_APPLICATION = 'majorproject.asgi.application'
 
 
 # Database
