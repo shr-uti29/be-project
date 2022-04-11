@@ -1,12 +1,10 @@
+from os import lstat
 from pickle import TRUE
 from owlready2 import *
 from owlready2.sparql.endpoint import *
 
-# onto_path.append("D:/Sem 7/project/ontology versions")
-# onto=get_ontology("D:/Sem 7/project/ontology versions/latestlatestlatest.owl")
-onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
-onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
-
+onto_path.append("D:/Sem 7/project/ontology versions")
+onto=get_ontology("D:/Sem 7/project/ontology versions/latestlatestlatest.owl")
 onto.load()
 
 #Function for finding symptoms based on diseases
@@ -37,95 +35,113 @@ def disease(name):
 # disease(input("Name of Disease:"))
 
 
-#Function for finding disease based on symptoms
-inputsymp=list(map(str, input("User symptoms: ").split()))
-n=len(inputsymp)
-st='select * where {<http://purl.obolibrary.org/obo/http://www.semanticweb.org/shruti/ontologies/2021/9/untitled-ontology-19#ABCDSyndrome>rdfs:subClassOf?Disease}'
-sym=[]
-for i in inputsymp:
-    st=st.replace('ABCDSyndrome',i)
-    l=list(default_world.sparql(st))
-    # print(l)
-    st=st.replace(i,'ABCDSyndrome')
-    for z in range(0,len(l)):
-        l1=l[z]
-        s=str(l1[0])
-        if z==0:
-            s=s.replace('untitled-ontology-19.','')
-            parent=s
-        else:
-            s=s.replace('untitled-ontology-19.belongsToDisease.some(untitled-ontology-19.','')
-            s=s.replace('untitled-ontology-19.belongsToDisease.some(latestlatestlatest.','')
-            s=s.replace(')','')
-            sym.append(s)
+# Function for finding disease based on symptoms-> input symptoms in list of strings format
+def symptoms(inputsymp):
+    # inputsymp=list(map(str, input("User symptoms: ").split()))
+    # n=len(inputsymp)
+    st='select * where {<http://purl.obolibrary.org/obo/http://www.semanticweb.org/shruti/ontologies/2021/9/untitled-ontology-19#ABCDSyndrome>rdfs:subClassOf?Disease}'
+    sym=[]
+    for i in inputsymp:
+        st=st.replace('ABCDSyndrome',i)
+        l=list(default_world.sparql(st))
+        # print(l)
+        st=st.replace(i,'ABCDSyndrome')
+        for z in range(0,len(l)):
+            l1=l[z]
+            s=str(l1[0])
+            if z==0:
+                s=s.replace('untitled-ontology-19.','')
+                parent=s
+            else:
+                s=s.replace('untitled-ontology-19.belongsToDisease.some(untitled-ontology-19.','')
+                s=s.replace('untitled-ontology-19.belongsToDisease.some(latestlatestlatest.','')
+                s=s.replace(')','')
+                sym.append(s)
+    return sym
 
-#Making countdic of disease-noof symptoms
-countdic={}
-for i in sym:
-    if i not in countdic:
-        countdic[i]=1
-    else:
-        countdic[i]=countdic[i]+1
-countdic=(dict(sorted(countdic.items(), key=lambda item: item[1], reverse= 1)))
-
-print(countdic)       
-lst=[]
-ct=0
-for key, value in countdic.items():
-    if n == value:
-        print("Disease Name:",key)
-        lst.append(key)
-        
-        print("Do you wish to know if these diseases have any other symptoms??")
-        ans=input("y/n")
-        if ans=='n':
-            break
+#Making countdic of disease-noof symptoms(noof=number of)-> input symptoms in list of strings format
+def dictionary(inputsymp):
+    sym=symptoms(inputsymp)   
+    countdic={}
+    for i in sym:
+        if i not in countdic:
+            countdic[i]=1
         else:
-            for i in range (ct,len(lst)):
-                flag=0
-                disease(lst[i])
-                print("Want to move forward?")
-                ans=input("y/n?")
-                if ans=='n':
-                    flag=1
-                    break
-        ct=ct+1
-        print(ct)
-        if(flag==1):
-            break
-    else:
-        print("No diseases found for the exact combination of symptoms entered. Trying to find closest matches.....")
-        while(n>2):
-            n=n-1
-            for key, value in countdic.items():
-                if n == value:
-                    print("Disease Name:",key)
-                    lst.append(key)
-                    print("Do you wish to know if these diseases have any other symptoms??")
-                    ans=input("y/n")
-                    if ans=='n':
-                        break
-                    else:
-                        for i in range (ct,len(lst)):
-                            flag=0
-                            k=disease(lst[i])
-                            # print("Matching symptoms are:",)
-                            print("Want to move forward?")
-                            ans=input("y/n?")
-                            if ans=='n':
-                                flag=1
-                                break
-                    ct=ct+1
-                    print(ct)
-                    if(flag==1):
-                        break
-            # if value == n:
-            #     lst.append(key)
-            if lst!=[]:
+            countdic[i]=countdic[i]+1
+    countdic=(dict(sorted(countdic.items(), key=lambda item: item[1], reverse= 1)))
+    return countdic
+
+#Interaction with the user to narrow down on the disease-> input symptoms in list of strings format
+def interaction(inputsymp):
+    lst=[]
+    ct=0
+    n=len(inputsymp)
+    countdic=dictionary(inputsymp)
+    for key, value in countdic.items():
+        if n == value:
+            print("Disease Name:",key)
+            lst.append(key)
+            print("Do you wish to know if these diseases have any other symptoms??")
+            ans=input("y/n")
+            if ans=='n':
                 break
-        break
-if lst==[]:
-    print("No match found for the combination of symptoms entered. Kindly reassess your symptoms and try again!")
+            else:
+                for i in range (ct,len(lst)):
+                    flag=0
+                    l,p=disease(lst[i])
+                    print("Symptoms: ",l)
+                    print("Want to move forward?")
+                    ans=input("y/n?")
+                    if ans=='n':
+                        flag=1
+                        break
+            ct=ct+1
+            if(flag==1):
+                break
+        else:
+            print("No diseases found for the exact combination of symptoms entered. Trying to find closest matches.....")
+            while(n>2):
+                n=n-1
+                for key, value in countdic.items():
+                    if n == value:
+                        print("Disease Name:",key)
+                        lst.append(key)
+                        print("Do you wish to know if these diseases have any other symptoms??")
+                        ans=input("y/n")
+                        if ans=='n':
+                            break
+                        else:
+                            for i in range (ct,len(lst)):
+                                flag=0
+                                l,p=disease(lst[i])
+                                print("Symptoms: ",l)
+                                # print("Matching symptoms are:",)
+                                print("Want to move forward?")
+                                ans=input("y/n?")
+                                if ans=='n':
+                                    flag=1
+                                    break
+                        ct=ct+1
+                        print(ct)
+                        if(flag==1):
+                            break
+                # if value == n:
+                #     lst.append(key)
+                if lst!=[]:
+                    break
+            break
+    if lst==[]:
+        print("No match found for the combination of symptoms entered. Kindly reassess your symptoms and try again!")
+
+q=['cough','fever']
+print(disease('AMEDSyndrome'))
+print('-------------------------------------')
+print(set(symptoms(q)))
+print('-------------------------------------')
+print(dictionary(q))
+print('-------------------------------------')
+interaction(q)
+
 # if lst !=[]:
 #     print(lst)
 #     flag=0
