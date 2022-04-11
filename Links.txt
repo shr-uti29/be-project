@@ -1,0 +1,5 @@
+https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send
+https://www.tutorialspoint.com/websockets/websockets_send_receive_messages.htm
+https://www.tutorialspoint.com/websockets/websockets_quick_guide.htm
+https://www.sitepoint.com/premium/books/django-channels-for-real-time-updates/read/1/
+https://www.pythonmorsels.com/importing-module-runs-code/
