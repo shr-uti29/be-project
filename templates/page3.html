@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-6 mx-auto mt-5">
                 <h1 id="practice">{{text}}</h1>
+                <h1 id="practice1">{{text}}</h1>
             </div>
         </div>
     </div>
@@ -22,6 +23,11 @@
             var data=JSON.parse(event.data);
             console.log(data);
             document.querySelector('#practice').innerText=data.message;
+        }
+        socket.onmessage=function(event1){
+            var data=JSON.parse(event1.data);
+            console.log(data);
+            document.querySelector('#practice1').innerText=data.message1;
         }
     </script>
 </body>
