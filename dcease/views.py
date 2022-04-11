@@ -93,8 +93,8 @@ def submit(request):
 
     
     # symptom corpus
-    # df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
-    df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
+    df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
+    # df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.rename(columns = {'snow white hair in patches':'Symptoms'}, inplace = True)
     symptoms = df.values.tolist()
@@ -135,10 +135,10 @@ def confirmsymptom(request):
         d.append(s1)
 
     # load ontology
-    # onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
-    # onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
-    onto_path.append("D:/Sem 7/project/be-project")
-    onto=get_ontology("D:/Sem 7/project/be-project/latestlatestlatest.owl")
+    onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
+    onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
+    # onto_path.append("D:/Sem 7/project/be-project")
+    # onto=get_ontology("D:/Sem 7/project/be-project/latestlatestlatest.owl")
     onto.load()
 
     # inputsymp=list(map(str, input("User symptoms: ").split()))
