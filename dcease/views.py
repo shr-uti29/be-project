@@ -93,8 +93,8 @@ def submit(request):
 
     
     # symptom corpus
-    df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
-    # df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
+    # df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
+    df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.rename(columns = {'snow white hair in patches':'Symptoms'}, inplace = True)
     symptoms = df.values.tolist()
@@ -135,17 +135,16 @@ def confirmsymptom(request):
         d.append(s1)
 
     # load ontology
-    onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
-    onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
-    # onto_path.append("D:/Sem 7/project/be-project")
-    # onto=get_ontology("D:/Sem 7/project/be-project/latestlatestlatest.owl")
+    # onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
+    # onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
+    onto_path.append("D:/Sem 7/project/be-project")
+    onto=get_ontology("D:/Sem 7/project/be-project/latestlatestlatest.owl")
     onto.load()
 
     # inputsymp=list(map(str, input("User symptoms: ").split()))
     n=len(d)
     st='select * where {<http://purl.obolibrary.org/obo/http://www.semanticweb.org/shruti/ontologies/2021/9/untitled-ontology-19#ABCDSyndrome>rdfs:subClassOf?Disease}'
     sym=[]
-    parent=''
     for i in d:
         st=st.replace('ABCDSyndrome',i)
         l=list(default_world.sparql(st))
@@ -156,10 +155,12 @@ def confirmsymptom(request):
             s=str(l1[0])
             if z==0:
                 s=s.replace('untitled-ontology-19.','')
-                parent=s
             else:
                 s=s.replace('untitled-ontology-19.belongsToDisease.some(untitled-ontology-19.','')
+                s=s.replace('untitled-ontology-19.belongsToDisease.some(latestlatestlatest.','')
                 s=s.replace(')','')
                 sym.append(s)
     return render(request, 'page1.html', {'output': confirmedsymptoms,'ans': sym})
     
+def send_disease(request):
+    return render(request,'page3.html',{})

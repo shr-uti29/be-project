@@ -23,10 +23,12 @@
             <div class="container">
             	<h1 style="color: navy; text-align: center; padding-top: 15px; font-size: xx-large;" >Results</h1>
                 <div class="signup-content">
-                    <form method="POST" id="signup-form" class="signup-form">
+                    <form method="POST" action="send_disease" id="signup-form" class="signup-form">
                         {% csrf_token %}
                         {{ans}}
-                         
+                        <input type="submit" class="form-submit"  style=" background: #0f3b9e;float:none" name="send_disease">
+                    </form>
+                </div>     
                         
 
     <!-- JS -->
