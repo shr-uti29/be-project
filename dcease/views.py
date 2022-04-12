@@ -93,8 +93,8 @@ def submit(request):
 
     
     # symptom corpus
-    df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
-    # df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
+    # df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
+    df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.rename(columns = {'snow white hair in patches':'Symptoms'}, inplace = True)
     symptoms = df.values.tolist()
@@ -133,6 +133,7 @@ def confirmsymptom(request):
             elif(s[i - 1] != ' '):
                 s1 += s[i].lower()
         d.append(s1)
+    print(d)
 
     # load ontology
     onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
@@ -160,7 +161,10 @@ def confirmsymptom(request):
                 s=s.replace('untitled-ontology-19.belongsToDisease.some(latestlatestlatest.','')
                 s=s.replace(')','')
                 sym.append(s)
-    return render(request, 'page1.html', {'output': confirmedsymptoms,'ans': sym})
+    symfinal=set(sym)
+    if 'untitled-ontology-19.Symptoms' in symfinal:
+        symfinal.remove('untitled-ontology-19.Symptoms')
+    return render(request, 'page1.html', {'output': confirmedsymptoms,'ans': symfinal})
     
 def send_disease(request):
     return render(request,'page3.html',context={'text': "Hellow"})
