@@ -15,12 +15,14 @@
                 <h1 id="practice">{{text}}</h1>
                 <h1 id="practice1">{{text}}</h1>
                 <form method="POST" >
-                    <input type="text" class="form-input" name="yesno" id="yesno" value=y />
-                    <input type="checkbox" id="yes" name="yes" value = "yes">
+                    <!-- <input type="text" class="form-input" name="yesno" id="yesno" /> -->
+                    <!-- <input type="button" id="yesno" onclick="myfunction(this.value)" value="Yes">  -->
+                    <!-- <input type="button" id="yesno" onclick="myfunction()" value="No">  -->
+                    <input type="checkbox" id="yes" name="yes" value = "yes" onclick="myfunction(this.value)">
                     <label for="yes" style="background-color:#1da0f2; color: white; padding: 8px;">Yes</label><br>
                     <br>
-                    <input type="checkbox" id="no" name="no" value = "no">
-                    <label for="no" style="background-color:#1da0f2; color: white; padding: 8px;">No</label><br>
+                    <input type="checkbox" id="yes" name="no" value = "no" onclick="myfunction(this.value)">
+                    <label for="yes" style="background-color:#1da0f2; color: white; padding: 8px;">No</label><br>
                     <br>
                 </form>
             </div>
@@ -29,15 +31,26 @@
     <script>
         var socket=new WebSocket('ws://localhost:8000/ws/some_url/');
         socket.onopen=function(event){
-            var input = document.getElementById("yesno").value;
-            console.log(input);
-            socket.send(JSON.stringify(input));
-        }
-        socket.onmessage=function(event){
+            // val = document.getElementById("yes").value;
+            // socket.send(JSON.stringify({'text':val}));
+            pass
+        }        
+        // socket.onopen=function(event){
+        //     socket.send(JSON.stringify({'text':val}));
+        //     // var yes = document.getElementById("yes");
+        //     // // var no = document.getElementById("no");
+        //     // console.log(yes)
+        //     // // console.log(yes.checked)
+        //     // // console.log(no.checked)
+        //     // socket.send(JSON.stringify(yes.checked));
+        // }
+        socket.onmessage=function myfunction(){
             var data=JSON.parse(event.data);
             console.log(data);
             document.querySelector('#practice').innerText=data.message;
             document.querySelector('#practice1').innerText=data.message1;
+            val = document.getElementById("yes");
+            socket.send(JSON.stringify({'text':val}));
         }
     </script>
 </body>
