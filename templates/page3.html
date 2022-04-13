@@ -33,7 +33,7 @@
         socket.onopen=function(event){
             // val = document.getElementById("yes").value;
             // socket.send(JSON.stringify({'text':val}));
-            pass
+            socket.send(JSON.stringify("ABCDSyndrome"));
         }        
         // socket.onopen=function(event){
         //     socket.send(JSON.stringify({'text':val}));
@@ -44,13 +44,14 @@
         //     // // console.log(no.checked)
         //     // socket.send(JSON.stringify(yes.checked));
         // }
-        socket.onmessage=function myfunction(){
+        socket.onmessage=function(event){
             var data=JSON.parse(event.data);
             console.log(data);
             document.querySelector('#practice').innerText=data.message;
             document.querySelector('#practice1').innerText=data.message1;
             val = document.getElementById("yes");
-            socket.send(JSON.stringify({'text':val}));
+            socket.send(JSON.stringify("AMEDSyndrome"));
+            socket.send(JSON.stringify("Pakistan"));
         }
     </script>
 </body>

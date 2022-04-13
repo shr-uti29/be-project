@@ -3,10 +3,10 @@ from pickle import TRUE
 from owlready2 import *
 from owlready2.sparql.endpoint import *
 
-# onto_path.append("D:/Sem 7/project/ontology versions")
-# onto=get_ontology("D:/Sem 7/project/ontology versions/latestlatestlatest.owl")
-onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
-onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
+onto_path.append("D:/Sem 7/project/ontology versions")
+onto=get_ontology("D:/Sem 7/project/ontology versions/latestlatestlatest.owl")
+# onto_path.append("C:/Users/shruti/Downloads/majorproject-master/majorproject-master")
+# onto=get_ontology("C:/Users/shruti/Downloads/majorproject-master/majorproject-master/latestlatestlatest.owl")
  
 onto.load()
 
