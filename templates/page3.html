@@ -14,6 +14,7 @@
             <div class="col-6 mx-auto mt-5">
                 <h1 id="practice">{{text}}</h1>
                 <h1 id="practice1">{{text}}</h1>
+                <h1 id="practice2">{{text}}</h1>
                 <form method="POST" >
                     <!-- <input type="text" class="form-input" name="yesno" id="yesno" /> -->
                     <!-- <input type="button" id="yesno" onclick="myfunction(this.value)" value="Yes">  -->
@@ -24,11 +25,15 @@
                     <input type="checkbox" id="yes" name="no" value = "no" onclick="myfunction(this.value)">
                     <label for="yes" style="background-color:#1da0f2; color: white; padding: 8px;">No</label><br>
                     <br>
+                    <h3 id="text">Hi</h3>
                 </form>
             </div>
         </div>
     </div>
     <script>
+        function myfunction(val){
+                ans =  document.getElementById("text").innerHTML = val;  
+            } 
         var socket=new WebSocket('ws://localhost:8000/ws/some_url/');
         socket.onopen=function(event){
             // val = document.getElementById("yes").value;
@@ -48,10 +53,10 @@
             var data=JSON.parse(event.data);
             console.log(data);
             document.querySelector('#practice').innerText=data.message;
-            document.querySelector('#practice1').innerText=data.message1;
-            val = document.getElementById("yes");
+            document.querySelector('#practice1').innerText=data.message1;   
             socket.send(JSON.stringify("AMEDSyndrome"));
-            socket.send(JSON.stringify("Pakistan"));
+            socket.send(JSON.stringify(ans));
+            socket.send(JSON.stringify("Pa"));
         }
     </script>
 </body>

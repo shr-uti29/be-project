@@ -93,8 +93,8 @@ def submit(request):
 
     
     # symptom corpus
-    # df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
-    df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
+    df = pd.read_excel (r'C:\Users\shruti\Downloads\majorproject-master\majorproject-master\Dataset (3).xlsx')
+    # df = pd.read_excel (r'D:\Sem 7\project\be-project\Dataset (3).xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.rename(columns = {'snow white hair in patches':'Symptoms'}, inplace = True)
     symptoms = df.values.tolist()
