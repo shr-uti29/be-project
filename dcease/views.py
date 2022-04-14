@@ -13,6 +13,9 @@ from googletrans import Translator
 from translate import Translator
 from owlready2 import *
 
+sym=[]
+d=[]
+
 # https://www.google.com/search?q=how+do+you+run+a+python+script+in+django&oq=how+do+you+run+a+python+script+in+django&aqs=chrome..69i57j0i22i30l4j0i390l2.19035j0j7&sourceid=chrome&ie=UTF-8
 # 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
 
@@ -122,7 +125,7 @@ def confirmsymptom(request):
     confirmedsymptoms = request.POST.getlist('symptom1[]')
     
     # convert camel case
-    d=[]
+    
     for s in confirmedsymptoms:
         s1 = ''
         s1 += s[0].lower()
@@ -145,7 +148,7 @@ def confirmsymptom(request):
     # inputsymp=list(map(str, input("User symptoms: ").split()))
     n=len(d)
     st='select * where {<http://purl.obolibrary.org/obo/http://www.semanticweb.org/shruti/ontologies/2021/9/untitled-ontology-19#ABCDSyndrome>rdfs:subClassOf?Disease}'
-    sym=[]
+    # sym=[]
     for i in d:
         st=st.replace('ABCDSyndrome',i)
         l=list(default_world.sparql(st))
@@ -167,4 +170,8 @@ def confirmsymptom(request):
     return render(request, 'page1.html', {'output': confirmedsymptoms,'ans': symfinal})
     
 def send_disease(request):
+    symfinal=set(sym)
+    if 'untitled-ontology-19.Symptoms' in symfinal:
+        symfinal.remove('untitled-ontology-19.Symptoms')
+    print("This is symfinal:",symfinal)
     return render(request,'page3.html',context={'text': "Hellow"})

@@ -19,10 +19,10 @@
                     <!-- <input type="text" class="form-input" name="yesno" id="yesno" /> -->
                     <!-- <input type="button" id="yesno" onclick="myfunction(this.value)" value="Yes">  -->
                     <!-- <input type="button" id="yesno" onclick="myfunction()" value="No">  -->
-                    <input type="checkbox" id="yes" name="yes" value = "yes" onclick="myfunction(this.value)">
+                    <input type="radio" id="yes" name="yes" value = "yes" onclick="myfunction(this.value)">
                     <label for="yes" style="background-color:#1da0f2; color: white; padding: 8px;">Yes</label><br>
                     <br>
-                    <input type="checkbox" id="yes" name="no" value = "no" onclick="myfunction(this.value)">
+                    <input type="radio" id="yes" name="yes" value = "no" onclick="myfunction(this.value)">
                     <label for="yes" style="background-color:#1da0f2; color: white; padding: 8px;">No</label><br>
                     <br>
                     <h3 id="text">Hi</h3>
@@ -38,7 +38,7 @@
         socket.onopen=function(event){
             // val = document.getElementById("yes").value;
             // socket.send(JSON.stringify({'text':val}));
-            socket.send(JSON.stringify("ABCDSyndrome"));
+            socket.send(JSON.stringify("yes"));
         }        
         // socket.onopen=function(event){
         //     socket.send(JSON.stringify({'text':val}));
@@ -54,9 +54,10 @@
             console.log(data);
             document.querySelector('#practice').innerText=data.message;
             document.querySelector('#practice1').innerText=data.message1;   
-            socket.send(JSON.stringify("AMEDSyndrome"));
+            document.querySelector('#practice2').innerText=data.message2; 
+            // socket.send(JSON.stringify("AMEDSyndrome"));
             socket.send(JSON.stringify(ans));
-            socket.send(JSON.stringify("Pa"));
+            document.getElementById("yes").checked = false;
         }
     </script>
 </body>
